@@ -15,7 +15,7 @@ const FavoritesPage = () => {
       {!loading && launches.length === 0 && (
         <div className="text-gray-500 text-center py-8">No favorite launches yet.</div>
       )}
-      <List items={launches} renderItem={(launch) => <LaunchCard launch={launch} />} />
+      <List className="flex flex-col gap-4" items={launches} renderItem={(launch) => <LaunchCard launch={launch} />} />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { Launch } from '@/interfaces/launches'
@@ -8,7 +8,6 @@ import { fetchFavoriteLaunches } from '@/api/launches'
 
 export function useFavoritePage() {
   const { favorites } = useFavorites()
-  const [launches, setLaunches] = useState<Launch[]>([])
 
   const {
     data: favoriteLaunches,
@@ -21,19 +20,15 @@ export function useFavoritePage() {
     enabled: favorites.length > 0,
   })
 
-  useEffect(() => {
-    if (favoriteLaunches) setLaunches(favoriteLaunches)
-  }, [favoriteLaunches])
-
-  useEffect(() => {
-    setLaunches((prev) => prev.filter((l) => favorites.includes(l.id)))
-    if (favorites.length === 0) setLaunches([])
-  }, [favorites])
+  const launches = useMemo(() => {
+    if (!favoriteLaunches) return []
+    return favoriteLaunches.filter((l) => favorites.includes(l.id))
+  }, [favoriteLaunches, favorites])
 
   return {
     launches,
     loading: isLoading,
-    error: error ? (error as Error).message : null,
+    error: error?.message ?? null,
     refetchFavoriteLaunches,
   }
 }
