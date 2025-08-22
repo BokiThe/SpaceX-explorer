@@ -14,7 +14,7 @@ export interface LaunchQuery {
     $lte?: string
   }
   $text?: {
-    $search: string
+    $search?: string
   }
   [key: string]: unknown
 }
