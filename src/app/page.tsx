@@ -7,8 +7,8 @@ export default function Home() {
         <Image
           src="/logo.svg"
           alt="SpaceX Logo"
-          width={150}
-          height={50}
+          width={400}
+          height={80}
           className="mb-8"
         />
 
@@ -17,9 +17,6 @@ export default function Home() {
           Discover the latest missions, rockets, and news from SpaceX.
         </p>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-      
-      </footer>
     </div>
   );
 }
