@@ -4,6 +4,5 @@
   "singleQuote": true,
   "semi": false,
   "useTabs": false,
-  "trailingComma": "es5",
-  "importOrderSeparation": true
+  "trailingComma": "es5"
 }
