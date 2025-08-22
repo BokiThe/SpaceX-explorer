@@ -46,7 +46,7 @@ const LaunchesForm: React.FC<LaunchesFormProps> = ({ values, onChange, onSubmit 
 
       {/* filter by upcoming/past */}
       <select
-        tabIndex={4}
+        tabIndex={3}
         name="upcoming"
         value={values.upcoming === undefined ? '' : values.upcoming ? 'true' : 'false'}
         onChange={(e) =>
