@@ -20,7 +20,7 @@ interface LaunchesFormProps {
 
 const LaunchesForm: React.FC<LaunchesFormProps> = ({ values, onChange, onSubmit }) => {
   return (
-    <form tabIndex={0} className=" mb-6 grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={onSubmit}>
+    <form tabIndex={0} className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={onSubmit}>
       <div className="flex flex-row border rounded px-3 py-2 w-full">
         <input
           tabIndex={1}
