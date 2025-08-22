@@ -19,7 +19,6 @@ export function useLaunches(filters: {
         page: typeof pageParam === 'number' ? pageParam : 1,
         limit: PAGE_SIZE,
         ...filters,
-        order: filters.order,
       }),
     getNextPageParam: (lastPage) => {
       if (lastPage && lastPage.page < lastPage.totalPages) {

@@ -57,7 +57,6 @@ export async function queryLaunches({
 
   try {
     const response = await spacexApi.request(options)
-    console.log('response', response)
     return response.data
   } catch (error) {
     console.error('SpaceX API error:', error)
