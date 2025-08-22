@@ -1,36 +1,18 @@
-import { useEffect, useState } from 'react'
-
-const STORAGE_KEY = 'favoriteLaunchIds'
+import { useCallback } from 'react'
+import { useFavoritesStore } from '@/stores/favoritesStore'
 
 export function useFavorites() {
-  const [favorites, setFavorites] = useState<string[]>([])
+  const { ids, toggle, remove, has } = useFavoritesStore()
 
-  // Load from localStorage on mount
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) {
-      try {
-        setFavorites(JSON.parse(stored))
-      } catch {
-        setFavorites([])
-      }
-    }
-  }, [])
+  const addFavorite = useCallback(
+    (id: string) => {
+      if (!has(id)) toggle(id)
+    },
+    [has, toggle]
+  )
 
-  // Persist to localStorage when favorites change
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
-  }, [favorites])
+  const removeFavorite = useCallback((id: string) => remove(id), [remove])
+  const isFavorite = useCallback((id: string) => has(id), [has])
 
-  const addFavorite = (id: string) => {
-    setFavorites((prev) => (prev.includes(id) ? prev : [...prev, id]))
-  }
-
-  const removeFavorite = (id: string) => {
-    setFavorites((prev) => prev.filter((favId) => favId !== id))
-  }
-
-  const isFavorite = (id: string) => favorites.includes(id)
-
-  return { favorites, addFavorite, removeFavorite, isFavorite }
+  return { favorites: ids, addFavorite, removeFavorite, isFavorite }
 }

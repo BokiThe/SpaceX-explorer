@@ -25,6 +25,11 @@ const Navigation = () => {
         }`}
       >
         <li>
+          <Link href="/" className="block px-2 py-2 hover:text-blue-400 transition-colors">
+            Home
+          </Link>
+        </li>
+        <li>
           <Link href="/launches" className="block px-2 py-2 hover:text-blue-400 transition-colors">
             Launches
           </Link>

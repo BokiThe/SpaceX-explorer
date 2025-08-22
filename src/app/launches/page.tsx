@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Launch } from '@/interfaces/launches'
 import { useLaunches } from '@/hooks/useLaunches'
 import LaunchesSkeleton from '@/components/skeletons/launchesSkeleton'
-import List from '@/components/list'
+import List from '@/components/List/List'
 import LaunchCard from '@/components/LaunchCard/LaunchCard'
 import LaunchesForm from '@/components/LaunchesForm/LaunchesForm'
 
