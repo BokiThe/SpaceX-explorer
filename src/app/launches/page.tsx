@@ -5,6 +5,7 @@ import { useLaunches } from '@/hooks/useLaunches'
 import LaunchesSkeleton from '@/components/skeletons/launchesSkeleton'
 import List from '@/components/list'
 import LaunchCard from '@/components/LaunchCard/LaunchCard'
+import LaunchesForm from '@/components/LaunchesForm/LaunchesForm'
 
 const Launches = () => {
   const [filters, setFilters] = useState({
@@ -18,11 +19,17 @@ const Launches = () => {
   })
 
   const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useLaunches(filters)
-
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">SpaceX Launches</h1>
-
+      <LaunchesForm
+        values={filters}
+        onChange={(name, value) => setFilters((prev) => ({ ...prev, [name]: value }))}
+        onSubmit={(e) => {
+          e.preventDefault()
+          refetch()
+        }}
+      />
       {/* Error state */}
       {error && (
         <div className="bg-red-100 text-red-700 p-4 rounded mb-4">
@@ -37,7 +44,11 @@ const Launches = () => {
 
       {/* Skeletons */}
       {isLoading && <LaunchesSkeleton />}
+      {/* Empty state */}
 
+      {!isLoading && data?.pages[0].docs.length === 0 && (
+        <div className="text-center text-gray-500 mt-8">No launches found matching the criteria.</div>
+      )}
       {/* Launches List */}
       <List
         items={data?.pages?.flatMap((page) => page.docs) ?? []}
