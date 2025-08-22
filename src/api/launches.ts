@@ -1,4 +1,5 @@
 import spacexApi from '@/api/spacex'
+import { Launch } from '@/interfaces/launches'
 
 export interface LaunchQuery {
   upcoming?: boolean
@@ -62,4 +63,16 @@ export async function queryLaunches({
     console.error('SpaceX API error:', error)
     throw error
   }
+}
+
+export const fetchFavoriteLaunches = async (ids: string[]): Promise<Launch[]> => {
+  if (ids.length === 0) return []
+  const data = await spacexApi<{ docs: Launch[] }>('/launches/query', {
+    method: 'POST',
+    data: {
+      query: { _id: { $in: ids } },
+      options: { pagination: false },
+    },
+  })
+  return data.data.docs
 }

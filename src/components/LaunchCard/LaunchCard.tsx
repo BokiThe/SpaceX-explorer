@@ -1,12 +1,22 @@
 import { Launch } from '@/interfaces/launches'
 import Link from 'next/link'
 import React from 'react'
+import { useFavoritesStore } from '@/stores/favoritesStore'
 
 interface LaunchCardProps {
   launch: Launch
 }
 
 const LaunchCard = ({ launch }: LaunchCardProps) => {
+  const { toggle, remove, has } = useFavoritesStore()
+
+  const favorite = has(launch.id)
+
+  const toggleFavorite = () => {
+    if (favorite) remove(launch.id)
+    else toggle(launch.id)
+  }
+
   return (
     <div
       key={launch.id}
@@ -41,7 +51,17 @@ const LaunchCard = ({ launch }: LaunchCardProps) => {
         </div>
       </div>
       <div className="flex flex-row md:flex-col  mt-2 md:mt-0  xs:mt-2 ">
-        <button>Add to favorites</button>
+        <button
+          onClick={toggleFavorite}
+          aria-pressed={favorite}
+          className={
+            favorite
+              ? 'bg-yellow-400 text-black rounded-xl p-2 font-bold'
+              : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl p-2 font-bold'
+          }
+        >
+          {favorite ? 'Remove favorite' : 'Add to favorites'}
+        </button>
       </div>
     </div>
   )
