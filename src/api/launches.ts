@@ -1,18 +1,7 @@
 import spacexApi from '@/api/spacex'
-import { Launch } from '@/interfaces/launches'
-
-export interface LaunchQuery {
-  upcoming?: boolean
-  success?: boolean
-  date_utc?: {
-    $gte?: string
-    $lte?: string
-  }
-  name?: {
-    $regex: string
-    $options: string
-  }
-}
+import { Launch, LaunchQuery } from '@/interfaces/launches'
+import { Rocket } from '@/interfaces/rocket'
+import { Launchpad } from '@/interfaces/launchpad'
 
 export async function queryLaunches({
   page = 1,
@@ -75,4 +64,19 @@ export const fetchFavoriteLaunches = async (ids: string[]): Promise<Launch[]> =>
     },
   })
   return data.data.docs
+}
+
+export const fetchLaunchById = async (id: string): Promise<Launch> => {
+  const res = await spacexApi.get<Launch>(`/launches/${id}`)
+  return res.data
+}
+
+export const fetchRocketById = async (id: string): Promise<Rocket> => {
+  const res = await spacexApi.get<Rocket>(`/rockets/${id}`)
+  return res.data
+}
+
+export const fetchLaunchpadById = async (id: string): Promise<Launchpad> => {
+  const res = await spacexApi.get<Launchpad>(`/launchpads/${id}`)
+  return res.data
 }

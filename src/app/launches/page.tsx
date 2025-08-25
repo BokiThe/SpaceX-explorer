@@ -6,6 +6,7 @@ import LaunchesSkeleton from '@/components/skeletons/launchesSkeleton'
 import List from '@/components/List/List'
 import LaunchCard from '@/components/LaunchCard/LaunchCard'
 import LaunchesForm from '@/components/LaunchesForm/LaunchesForm'
+import FavoriteButton from '@/components/FavoriteButton/FavoriteButton'
 
 const Launches = () => {
   const [filters, setFilters] = useState({
@@ -59,13 +60,7 @@ const Launches = () => {
       {/* Infinite scroll / Load more */}
       {hasNextPage && (
         <div className="flex justify-center mt-6">
-          <button
-            onClick={() => fetchNextPage()}
-            disabled={isFetchingNextPage}
-            className="bg-blue-800 text-white px-4 py-2 rounded disabled:opacity-50"
-          >
-            {isFetchingNextPage ? 'Loading...' : 'Load more'}
-          </button>
+          <FavoriteButton isFavorite={false} onClick={() => fetchNextPage()} disabled={isFetchingNextPage} />
         </div>
       )}
     </div>
