@@ -20,7 +20,7 @@ const LaunchCard = ({ launch }: LaunchCardProps) => {
   return (
     <div
       key={launch.id}
-      className="bg-white dark:bg-gray-600 px-6 rounded shadow flex flex-col md:flex-row md:items-center justify-between dark:color-white h-32"
+      className="bg-white dark:bg-gray-600 px-6 rounded shadow flex-1 md:flex py-2 md:py-4 flex-col md:flex-row md:items-center justify-between dark:color-white h-32"
     >
       <div className="flex flex-col gap-2">
         <p className="flex font-semibold text-lg">{launch.name}</p>
@@ -50,14 +50,14 @@ const LaunchCard = ({ launch }: LaunchCardProps) => {
           </Link>
         </div>
       </div>
-      <div className="flex flex-row md:flex-col  mt-2 md:mt-0  xs:mt-2 ">
+      <div className="flex flex-row md:flex-col mt-2 md:mt-0 ">
         <button
           onClick={toggleFavorite}
           aria-pressed={favorite}
           className={
             favorite
-              ? 'bg-yellow-400 text-black rounded-xl p-2 font-bold'
-              : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl p-2 font-bold'
+              ? 'bg-yellow-400 hover:cursor-pointer text-black rounded-xl p-2 font-bold'
+              : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl p-2 font-bold hover:cursor-pointer'
           }
         >
           {favorite ? 'Remove favorite' : 'Add to favorites'}

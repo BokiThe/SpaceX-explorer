@@ -20,7 +20,7 @@ const Navigation = () => {
         </button>
       </div>
       <ul
-        className={`flex-col md:flex-row md:flex gap-3 p-4 absolute md:static top-15 left-0 w-full md:w-auto bg-black md:bg-transparent transition-all duration-300 z-10 ${
+        className={`flex-col md:flex-row md:flex gap-3 p-4 absolute md:static top-14 left-0 w-full md:w-auto bg-black md:bg-transparent transition-all duration-300 z-10 ${
           menuOpen ? 'flex' : 'hidden md:flex'
         }`}
       >

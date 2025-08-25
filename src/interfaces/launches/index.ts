@@ -1,9 +1,45 @@
+export interface LaunchQuery {
+  upcoming?: boolean
+  success?: boolean
+  date_utc?: {
+    $gte?: string
+    $lte?: string
+  }
+  name?: {
+    $regex: string
+    $options: string
+  }
+}
+
 export interface Launch {
   id: string
   name: string
   date_utc: string
   success?: boolean
   upcoming?: boolean
+  rocket?: string
+  launchpad?: string
+  links?: {
+    article?: string | null
+    flickr?: {
+      original?: string[]
+      small?: string[]
+    }
+    patch?: {
+      small?: string
+      large?: string
+    }
+    reddit?: {
+      campaign?: string | null
+      launch?: string | null
+      media?: string | null
+      recovery?: string | null
+    }
+    webcast?: string | null
+    wikipedia?: string | null
+    youtube_id?: string | null
+  }
+  details?: string
 }
 
 export interface LaunchQuery {
@@ -25,7 +61,7 @@ export interface LaunchesQueryOptions {
   page?: number
   offset?: number
   select?: Record<string, number> | string
-  populate?: Array<string | { path: string; select?: Record<string, number>; populate?: unknown }> // Nested populate
+  populate?: Array<string | { path: string; select?: Record<string, number>; populate?: unknown }>
   pagination?: boolean
 }
 

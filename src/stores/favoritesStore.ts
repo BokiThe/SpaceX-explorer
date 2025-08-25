@@ -2,7 +2,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-type FavoritesProps = {
+interface FavoritesProps {
   ids: string[]
   toggle: (id: string) => void
   remove: (id: string) => void
