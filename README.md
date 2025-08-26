@@ -72,6 +72,7 @@ Key files
 - `CHANGELOG.md` — release notes and changelog
 
 
+# Time spent on the project [13 hours 50 minutes]
 
 
 

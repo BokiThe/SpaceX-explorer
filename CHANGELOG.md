@@ -108,7 +108,7 @@
   - added `images.remotePatterns` to allow Flickr/Imgur image hosts for `next/image`
 
 - Author: (BokiThe)
-- Time spent: 2h 30m (estimate)
+- Time spent: 2h 30m
 - Notes:
 
   - The detail page is implemented as a Server Component to improve initial load and SEO; interactive favorite toggle is client-only and intentionally defers reading the persisted store until mount to avoid hydration mismatches.
