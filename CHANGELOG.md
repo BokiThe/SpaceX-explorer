@@ -119,7 +119,7 @@
 
 [8.0] - 26-08-2025
 
-### 8) Added the CHANGELOD and updated README
+### 8) Added the CHANGELOG and updated README
 
 - ADDED
 
