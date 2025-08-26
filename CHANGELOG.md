@@ -116,3 +116,34 @@
   - Introduced a reusable `FavoriteButton` component and improved the LaunchCard styling for better responsiveness.
 
 - Ticket / PR: [#PR](https://github.com/BokiThe/SpaceX-explorer/pull/7)
+
+[8.0] - 26-08-2025
+
+### 8) Added the CHANGELOD and updated README
+
+- ADDED
+
+- CHANGELOG
+
+- UPDATED
+- README file
+
+- Author: (BokiThe)
+- Time spent: 20min
+- Ticket / PR: [#PR](https://github.com/BokiThe/SpaceX-explorer/pull/8)
+
+[9.0] - 26-08-2025
+
+### 8) added the ssr to launches page
+
+- UPDATED
+
+- This PR adds server-side rendering (SSR) support to the launches page, replacing the previous client-side data fetching approach with Next.js server components and actions.
+
+- Migrated from client-side React Query implementation to SSR with server actions
+- Replaced the useLaunches hook with a server action for fetching launches data
+- Added proper loading and error handling components for the launches route
+
+- Author: (BokiThe)
+- Time spent: 2h 30min
+- Ticket / PR: [#PR](https://github.com/BokiThe/SpaceX-explorer/pull/8)

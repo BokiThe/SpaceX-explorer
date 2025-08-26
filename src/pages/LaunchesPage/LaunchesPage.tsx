@@ -24,6 +24,7 @@ const LaunchesPage = ({ params, response }: LaunchesPageProps) => {
   }
 
   useEffect(() => {
+    if (params.page === '1') return setData(docs)
     setData((prev) => [...prev, ...docs])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.page])
@@ -45,7 +46,6 @@ const LaunchesPage = ({ params, response }: LaunchesPageProps) => {
           className="flex flex-col gap-4"
           renderItem={(launch: Launch) => <LaunchCard launch={launch} />}
         />
-        {/* route-level loading UI will render during navigation */}
       </>
 
       {/* Infinite scroll / Load more */}
