@@ -48,9 +48,10 @@ Tradeoffs and next steps
 
 Planned improvements:
 
-- E2E tests (Cypress/Playwright) and CI checks
+
 - Optional server-backed favorites (requires auth)
 - Client-side infinite scroll variant (currently Load More uses navigation so server loading UI is shown)
+- Implement recharts and charts for the success and failure rates
 
 Known limitations
 
