@@ -34,7 +34,13 @@ const RocketSection = ({ rocket }: RocketSectionProps) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {rocketImages?.map((src, idx) => (
             <div key={idx} className="w-full h-48 relative">
-              <Image src={src} alt={`launch-${idx}`} fill className="object-cover rounded" />
+              <Image
+                src={src}
+                alt={`launch-${idx}`}
+                fill
+                sizes="(min-width: 640px) 32rem, 100vw"
+                className="object-cover rounded"
+              />
             </div>
           ))}
         </div>

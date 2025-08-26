@@ -1,70 +1,27 @@
-'use client'
-import React, { useState } from 'react'
-import { Launch } from '@/interfaces/launches'
-import { useLaunches } from '@/hooks/useLaunches'
-import LaunchesSkeleton from '@/components/skeletons/launchesSkeleton'
-import List from '@/components/List/List'
-import LaunchCard from '@/components/LaunchCard/LaunchCard'
-import LaunchesForm from '@/components/LaunchesForm/LaunchesForm'
-import FavoriteButton from '@/components/FavoriteButton/FavoriteButton'
+import { LaunchesFiltersParamsType } from '@/interfaces/launches'
+import LaunchesPage from '@/pages/LaunchesPage/LaunchesPage'
+import fetchSpaceX from '../actions/launches'
 
-const Launches = () => {
-  const [filters, setFilters] = useState({
-    upcoming: undefined as undefined | boolean,
-    success: undefined as undefined | boolean,
-    start: '',
-    end: '',
-    sort: 'date_utc',
-    order: 'desc' as 'asc' | 'desc',
-    search: '',
-  })
+const Launches = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) => {
+  const params = await searchParams
 
-  const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useLaunches(filters)
-  return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">SpaceX Launches</h1>
-      <LaunchesForm
-        values={filters}
-        onChange={(name, value) => setFilters((prev) => ({ ...prev, [name]: value }))}
-        onSubmit={(e) => {
-          e.preventDefault()
-          refetch()
-        }}
-      />
-      {/* Error state */}
-      {error && (
-        <div className="bg-red-100 text-red-700 p-4 rounded mb-4">
-          <p>
-            Error loading launches.{' '}
-            <button className="underline" onClick={() => refetch()}>
-              Retry
-            </button>
-          </p>
-        </div>
-      )}
+  const LaunchesFiltersParams: LaunchesFiltersParamsType = {
+    upcoming: (params.upcoming as string) || undefined,
+    success: (params.success as string) || undefined,
+    start: (params.start as string) || '',
+    end: (params.end as string) || '',
+    sort: (params.sort as string) || 'date_utc',
+    order: (params.order as 'asc' | 'desc') || 'desc',
+    search: (params.search as string) || '',
+    page: params.page ? String(params.page) : '1',
+  }
+  const response = await fetchSpaceX(LaunchesFiltersParams)
 
-      {/* Skeletons */}
-      {isLoading && <LaunchesSkeleton />}
-      {/* Empty state */}
-
-      {!isLoading && data?.pages[0].docs.length === 0 && (
-        <div className="text-center text-gray-500 mt-8">No launches found matching the criteria.</div>
-      )}
-      {/* Launches List */}
-      <List
-        items={data?.pages?.flatMap((page) => page.docs) ?? []}
-        className="flex flex-col gap-4"
-        renderItem={(launch: Launch) => <LaunchCard launch={launch} />}
-      />
-
-      {/* Infinite scroll / Load more */}
-      {hasNextPage && (
-        <div className="flex justify-center mt-6">
-          <FavoriteButton isFavorite={false} onClick={() => fetchNextPage()} disabled={isFetchingNextPage} />
-        </div>
-      )}
-    </div>
-  )
+  return <LaunchesPage params={LaunchesFiltersParams} response={response} />
 }
 
 export default Launches
