@@ -6,10 +6,10 @@ import Link from 'next/link'
 const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   return (
-    <nav className="w-full bg-black text-white px-4 py-3 flex items-center justify-between shadow-md">
-      <div className="flex items-center gap-2">
+    <nav className="w-full bg-black text-white px-4  flex items-center justify-between shadow-md">
+      <div className="flex items-center gap-2 z-10">
         <Link href="/">
-          <Image src="/logo.svg" alt="SpaceX Logo" width={250} height={50} priority />
+          <Image src="/logo.svg" alt="SpaceX Logo" width={150} height={50} className="w-auto" priority />
         </Link>
       </div>
       <div className="md:hidden">

@@ -1,14 +1,12 @@
-export interface LaunchQuery {
-  upcoming?: boolean
-  success?: boolean
-  date_utc?: {
-    $gte?: string
-    $lte?: string
-  }
-  name?: {
-    $regex: string
-    $options: string
-  }
+export interface LaunchesFiltersParamsType {
+  upcoming?: boolean | string
+  success?: boolean | string
+  start?: string
+  end?: string
+  sort?: string | number | readonly string[] | undefined
+  order?: 'asc' | 'desc'
+  search?: string
+  page?: string
 }
 
 export interface Launch {
@@ -42,29 +40,6 @@ export interface Launch {
   details?: string
 }
 
-export interface LaunchQuery {
-  upcoming?: boolean
-  success?: boolean
-  date_utc?: {
-    $gte?: string
-    $lte?: string
-  }
-  $text?: {
-    $search?: string
-  }
-  [key: string]: unknown
-}
-
-export interface LaunchesQueryOptions {
-  sort?: Record<string, 'asc' | 'desc'> | string
-  limit?: number
-  page?: number
-  offset?: number
-  select?: Record<string, number> | string
-  populate?: Array<string | { path: string; select?: Record<string, number>; populate?: unknown }>
-  pagination?: boolean
-}
-
 export interface LaunchesResponse {
   docs: Launch[]
   totalDocs: number
@@ -77,4 +52,32 @@ export interface LaunchesResponse {
   hasNextPage: boolean
   prevPage: number | null
   nextPage: number | null
+}
+
+export interface SpaceXDateRange {
+  $gte?: string
+  $lte?: string
+}
+
+export interface SpaceXNameQuery {
+  $regex: string
+  $options?: string
+}
+
+export interface LaunchesAPIQuery {
+  upcoming?: boolean
+  success?: boolean
+  date_utc?: SpaceXDateRange
+  name?: SpaceXNameQuery
+  [key: string]: unknown
+}
+
+export interface LaunchesAPIRequestBody {
+  query: LaunchesAPIQuery
+  options: {
+    page?: number
+    limit?: number
+    sort?: { [key: string]: 'asc' | 'desc' }
+    pagination?: boolean
+  }
 }

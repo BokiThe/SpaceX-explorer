@@ -1,9 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { fetchLaunchById, fetchRocketById, fetchLaunchpadById } from '@/api/launches'
-import { Launch } from '@/interfaces/launches'
-import { Rocket } from '@/interfaces/rocket'
-import { Launchpad } from '@/interfaces/launchpad'
+import { notFound } from 'next/navigation'
+import { getLaunchDetails } from '@/lib/getLaunchDetails'
 import FavoriteToggle from '@/components/LaunchDetail/FavoriteToggle'
 import LaunchLinks from '@/components/LaunchDetail/LaunchLinks'
 import RocketSection from '@/components/LaunchDetail/RocketSection'
@@ -20,32 +18,27 @@ export default async function LaunchDetail({ params }: Props) {
   const rawId = resolvedParams.id
   const id = Array.isArray(rawId) ? rawId[0] ?? '' : rawId ?? ''
 
-  const launch: Launch = await fetchLaunchById(id)
+  const details = await getLaunchDetails(id)
+  if (!details) return notFound()
 
-  const rocket: Rocket | null = launch.rocket ? await fetchRocketById(launch.rocket) : null
-  const launchpad: Launchpad | null = launch.launchpad ? await fetchLaunchpadById(launch.launchpad) : null
+  const { launch, rocket, launchpad } = details
 
   const launchImages: string[] = launch.links?.flickr?.original ?? []
   const rocketImages: string[] = rocket?.flickr_images ?? []
-
   const launchPadImages: string[] = launchpad?.images?.large ?? []
 
-  const returnHeroImage = () => {
-    if (launchImages.length > 0) {
-      return launchImages[0]
-    } else if (rocketImages.length > 0) {
-      return rocketImages[0]
-    } else if (launchPadImages.length > 0) {
-      return launchPadImages[0]
-    } else {
-      return '/default-hero.jpg'
-    }
-  }
+  const returnHeroImage = () => launchImages[0] ?? launchPadImages[0] ?? rocketImages[0] ?? '/hero_image_spaceX.jpg'
 
   return (
-    <div>
-      <div className="w-full h-150 relative">
-        <Image src={returnHeroImage()} alt="Hero Image" fill className="object-cover rounded" />
+    <>
+      <div className="relative w-full h-150">
+        <Image
+          src={returnHeroImage()}
+          alt="Hero Image"
+          fill
+          sizes="(min-width: 640px) 32rem, 100vw"
+          className="object-cover rounded h-auto"
+        />
       </div>
 
       <div className="max-w-3xl mx-auto px-4 py-8">
@@ -70,6 +63,6 @@ export default async function LaunchDetail({ params }: Props) {
         <RocketSection rocket={rocket} />
         <LaunchpadSection launchpad={launchpad} />
       </div>
-    </div>
+    </>
   )
 }
