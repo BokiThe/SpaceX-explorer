@@ -69,7 +69,13 @@ const LaunchesForm: React.FC<LaunchesFormProps> = ({ values, handleFiltersChange
       <select
         tabIndex={3}
         name="upcoming"
-        value={!!values.upcoming ? values.upcoming.toString() : ''}
+        value={
+          values.upcoming === true || values.upcoming === 'true'
+            ? 'true'
+            : values.upcoming === false || values.upcoming === 'false'
+            ? 'false'
+            : ''
+        }
         onChange={(e) => handleFiltersChange('upcoming', e.target.value)}
         className="border rounded px-3 py-2 w-full"
       >
@@ -81,7 +87,13 @@ const LaunchesForm: React.FC<LaunchesFormProps> = ({ values, handleFiltersChange
       <select
         tabIndex={5}
         name="success"
-        value={!!values.success ? values.success.toString() : ''}
+        value={
+          values.success === true || values.success === 'true'
+            ? 'true'
+            : values.success === false || values.success === 'false'
+            ? 'false'
+            : ''
+        }
         onChange={(e) => handleFiltersChange('success', e.target.value)}
         className="border rounded px-3 py-2 w-full"
       >

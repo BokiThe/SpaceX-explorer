@@ -53,3 +53,31 @@ export interface LaunchesResponse {
   prevPage: number | null
   nextPage: number | null
 }
+
+export interface SpaceXDateRange {
+  $gte?: string
+  $lte?: string
+}
+
+export interface SpaceXNameQuery {
+  $regex: string
+  $options?: string
+}
+
+export interface LaunchesAPIQuery {
+  upcoming?: boolean
+  success?: boolean
+  date_utc?: SpaceXDateRange
+  name?: SpaceXNameQuery
+  [key: string]: unknown
+}
+
+export interface LaunchesAPIRequestBody {
+  query: LaunchesAPIQuery
+  options: {
+    page?: number
+    limit?: number
+    sort?: { [key: string]: 'asc' | 'desc' }
+    pagination?: boolean
+  }
+}

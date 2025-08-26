@@ -1,4 +1,4 @@
-import { LaunchesFiltersParamsType } from '@/interfaces/launches'
+import { LaunchesFiltersParamsType, LaunchesAPIQuery, LaunchesAPIRequestBody } from '@/interfaces/launches'
 
 export default async function fetchSpaceX(LaunchFiltersParams: LaunchesFiltersParamsType) {
   'use server'
@@ -6,16 +6,16 @@ export default async function fetchSpaceX(LaunchFiltersParams: LaunchesFiltersPa
   const { upcoming, success, start, end, search, page, sort, order } = LaunchFiltersParams
 
   const date_utc = start || end ? { ...(start ? { $gte: start } : {}), ...(end ? { $lte: end } : {}) } : undefined
-  const query: LaunchesFiltersParamsType = {
+  const query: LaunchesAPIQuery = {
     ...(upcoming !== undefined ? { upcoming: upcoming === true || upcoming === 'true' } : {}),
     ...(success !== undefined ? { success: success === true || success === 'true' } : {}),
     ...(date_utc ? { date_utc } : {}),
     ...(search ? { name: { $regex: search, $options: 'i' } } : {}),
   }
-  const body = {
+  const body: LaunchesAPIRequestBody = {
     query,
     options: {
-      page: page ?? 1,
+      page: page ? Number(page) : 1,
       limit: 5,
       sort: { [String(sort ?? 'date_utc')]: order ?? 'desc' },
     },
