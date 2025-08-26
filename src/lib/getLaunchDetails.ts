@@ -22,6 +22,7 @@ export async function getLaunchDetails(id?: string | null): Promise<LaunchDetail
 
   if (!launch) return null
 
+  const rocketId = typeof launch.rocket === 'string' ? launch.rocket : undefined
   const launchpadId = typeof launch.launchpad === 'string' ? launch.launchpad : undefined
 
   const [rocketRes, launchpadRes] = await Promise.allSettled([
