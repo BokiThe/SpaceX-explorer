@@ -22,15 +22,16 @@ const LaunchesForm: React.FC<LaunchesFormProps> = ({ values, handleFiltersChange
   const [searchInput, setSearchInput] = useState<string>(values.search || '')
   const debouncedSearch = useDebounce(searchInput, 400)
 
-  // sync when external values.search changes (e.g., navigation)
   useEffect(() => {
     setSearchInput(values.search || '')
   }, [values.search])
 
   useEffect(() => {
-    handleFiltersChange('search', debouncedSearch)
+    if (debouncedSearch !== values.search) {
+      handleFiltersChange('search', debouncedSearch)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearch])
+  }, [debouncedSearch, values.search])
 
   const onSearchKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
