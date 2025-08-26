@@ -134,7 +134,7 @@
 
 [9.0] - 26-08-2025
 
-### 8) added the ssr to launches page
+### 9) added the ssr to launches page
 
 - UPDATED
 
